@@ -1,10 +1,9 @@
+import ChatPage from "./pages/ChatPage"
 
 function App() {
 
   return (
-    <>
-     <p className="bg-blue-500 text-white p-4">Hello World</p>
-    </>
+    <ChatPage/>
   )
 }
 

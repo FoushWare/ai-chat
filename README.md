@@ -40,5 +40,4 @@ src/
 ├── index.css
 └── main.jsx
 
-
 ```
