@@ -9,3 +9,7 @@ export interface Session {
     sessions: Session[];
     onSelectSession: Dispatch<SetStateAction<Session | null>>
   }
+  export interface ChatListProps {
+    sessions: Session[];
+    onSelectSession: Dispatch<SetStateAction<Session | null>>
+  }
