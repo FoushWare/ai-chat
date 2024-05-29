@@ -1,8 +1,14 @@
 import { ShareIcon} from '@heroicons/react/24/solid'
+import { Bars3Icon} from '@heroicons/react/24/outline'
 
 import montaLogo from '../../assets/monta-logo.png';
+import { Dispatch, SetStateAction } from 'react';
 
-const Header = () => {
+interface HeaderProps {
+  setSidebarOpen: Dispatch<SetStateAction<boolean>>;
+}
+
+const Header = ({  setSidebarOpen }: HeaderProps) => {
   const handleShare = async () => {
     if (navigator.share) {
       try {
@@ -22,8 +28,11 @@ const Header = () => {
   return (
     <header className="bg-monta-purple text-white p-4 flex justify-between items-center">
       <div className="flex items-center">
+        <Bars3Icon className="h-8 mr-2 lg:hidden " 
+        onClick={() => setSidebarOpen(true)}
+        />
         <img src={montaLogo} alt="Monta AI Logo" className="h-8 mr-2" />
-        <h1 className="text-2xl">Monta AI Chat</h1>
+        <h1 className="text-2xl hidden md:block">Monta AI Chat</h1>
       </div>
       <button
         onClick={handleShare}

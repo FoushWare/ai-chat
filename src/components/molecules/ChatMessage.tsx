@@ -1,13 +1,28 @@
 import { Message } from '@/types';
-import { Typography } from '../atoms/Typography';
 
 interface ChatMessageProps {
-  message: Message
+  message: Message;
 }
+
 const ChatMessage = ({ message }: ChatMessageProps) => {
   return (
-    <div className="my-2 p-2 border-b border-gray-200">
-      <Typography className="text-gray-700">{message.text}</Typography>
+    <div className={`my-2 p-2 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
+      {message.sender === 'bot' && (
+        <img
+          src="/src/assets/monta-logo.png"
+          alt="Bot avatar"
+          className="w-10 h-10 rounded-full mr-2"
+        />
+      )}
+      <div
+        className={`p-2 rounded ${
+          message.sender === 'user'
+            ? 'bg-blue-500 text-white'
+            : 'bg-gray-200 text-black'
+        }`}
+      >
+        {message.text}
+      </div>
     </div>
   );
 };
