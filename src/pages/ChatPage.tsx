@@ -48,13 +48,7 @@ const ChatPage = () => {
   
 
   const handleSendMessage = (message: string) => {
-
     addMessageToSession(message, 'user');
-    // setTimeout(() => {
-    // // Simulate bot response
-    //   const botResponse = `Bot response to: ${message}`;
-    //   addMessageToSession(botResponse, 'bot');
-    // }, 1000);
   };
 
   const createNewSession = () => {

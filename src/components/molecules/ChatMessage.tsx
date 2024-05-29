@@ -1,4 +1,6 @@
 import { Message } from '@/types';
+import montaLogo from '../../assets/monta-logo.png';
+
 
 interface ChatMessageProps {
   message: Message;
@@ -9,7 +11,7 @@ const ChatMessage = ({ message }: ChatMessageProps) => {
     <div className={`my-2 p-2 flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
       {message.sender === 'bot' && (
         <img
-          src="/src/assets/monta-logo.png"
+          src={montaLogo}
           alt="Bot avatar"
           className="w-10 h-10 rounded-full mr-2"
         />
