@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import Sidebar from "@components/organisms/Sidebar";
 import { Session, Message } from "@/types";
 import MainChat from "@components/organisms/MainChat";
-import ChatForm from "@components/molecules/ChatForm";
-import { startTransition } from 'react';
 
 
 const ChatPage = () => {
