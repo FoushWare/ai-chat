@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction } from "react";
 export interface Session {
     id: number;
     title: string;
-    messages: string[]; // Adjust the type of messages as per your application's requirement
+    messages: Message[];
   }
   export interface SidebarProps {
     sessions: Session[];
@@ -12,4 +12,9 @@ export interface Session {
   export interface ChatListProps {
     sessions: Session[];
     onSelectSession: Dispatch<SetStateAction<Session | null>>
+  }
+  export interface Message {
+    id: number;
+    text: string;
+    sender: 'user' | 'bot';
   }

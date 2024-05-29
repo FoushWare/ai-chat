@@ -1,15 +1,15 @@
+import { Message } from '@/types';
 import ChatHistory from './ChatHistory';
+import Header from "@components/organisms/Header";
 
 interface MainChatProps {
-  messages: string[];
-  onSend: (message: string) => void;
+  messages: Message[]
 }
-const MainChat = ({ messages, onSend }: MainChatProps) => {
+const MainChat = ({ messages }: MainChatProps) => {
   return (
-    <div className="w-full p-4 flex flex-col h-full">
+    <div className="w-full p-4 flex flex-col h-full relative">
+      <Header />
       <ChatHistory messages={messages} />
-      {/* <ChatForm onSend={onSend} /> */}
-      <div onClick={() => onSend('test')}>chat form</div>
     </div>
   );
 };

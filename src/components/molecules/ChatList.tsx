@@ -1,10 +1,12 @@
 import { ChatListProps } from "@/types";
 
 const ChatList: React.FC<ChatListProps> = ({ sessions, onSelectSession }) => {
+  const sortedSessions = sessions.sort((a, b) => new Date(b.id).getTime() - new Date(a.id).getTime());
   return (
     <div className="bg-white p-4 border border-gray-300 rounded-md overflow-y-auto h-full">
       <h2 className="text-xl font-semibold mb-4">Chat History</h2>
-      {sessions.map((session, index) => (
+
+      {sortedSessions.map((session, index) => (
         <div
           key={index}
           onClick={() => onSelectSession(session)}
