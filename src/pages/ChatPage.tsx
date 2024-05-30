@@ -13,8 +13,14 @@ const ChatPage = () => {
     const storedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
     if (storedSessions) {
       setSessions(storedSessions);
-      // Assuming you have a way to determine the current session
       setCurrentSession(storedSessions[0]);
+    }
+  }, []);
+
+  // check if the window is in mobile view and set the sidebar to false to hide it when first loaded
+  useEffect(() => {
+    if (window.innerWidth < 768) {
+      setSidebarOpen(false);
     }
   }, []);
 
@@ -25,7 +31,7 @@ const ChatPage = () => {
         text: message,
         sender: sender,
       };
-      const botResponse : Message = {
+      const botResponse: Message = {
         id: Date.now(),
         text: `Bot response to: ${message}`,
         sender: 'bot',
@@ -39,42 +45,53 @@ const ChatPage = () => {
       const updatedSessions = sessions.map((session) =>
         session.id === currentSession.id ? updatedSession : session
       );
-      console.log("updatedSessions",updatedSessions);
+      console.log("updatedSessions", updatedSessions);
       setSessions(updatedSessions);
       setCurrentSession(updatedSession);
       localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
     }
   };
-  
+
 
   const handleSendMessage = (message: string) => {
-    addMessageToSession(message, 'user');
+    if (!currentSession) {
+      createNewSession(message);
+    } else {
+      addMessageToSession(message, 'user');
+    }
   };
 
-  const createNewSession = () => {
+  const createNewSession = (initialMessage?: string) => {
     const newSession: Session = {
       id: Date.now(),
       title: `Session ${sessions.length + 1}`,
-      messages: [],
+      messages: initialMessage ? [{ id: Date.now(), text: initialMessage, sender: 'user' },{
+        id: Date.now(),
+        text: `Bot response to: ${initialMessage}`,
+        sender: 'bot',
+      }]
+       : [],
     };
     const updatedSessions = [newSession, ...sessions];
     setSessions(updatedSessions);
     setCurrentSession(newSession);
+    console.log("updatedSessions", updatedSessions);
     localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
   };
 
   return (
     <div className="flex min-h-screen">
-      <Sidebar 
-        sessions={sessions} 
-        onSelectSession={setCurrentSession} 
-        onCreateNewSession={createNewSession} 
+      <Sidebar
+        sessions={sessions}
+        onSelectSession={setCurrentSession}
+        onCreateNewSession={createNewSession}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
       />
       <div className="flex-1 flex flex-col relative">
         <div className="flex-grow overflow-y-auto p-4">
-          <MainChat messages={currentSession ? currentSession.messages : []} 
+          {/* Header, ChatHistory, ChatForm */}
+          <MainChat messages={currentSession ? currentSession.messages : []}
             setSidebarOpen={setSidebarOpen}
             handleSendMessage={handleSendMessage}
           />

@@ -13,10 +13,10 @@ const MainChat = ({ messages,  setSidebarOpen, handleSendMessage }: MainChatProp
   return (
     <div className="w-full p-4 flex flex-col h-full relative">
       <Header  setSidebarOpen={setSidebarOpen} />
-      <div className='flex-grow overflow-y-auto max-h-[calc(100vh-15rem)] border-2 border-gray-300 rounded-md'>
+      <div className='flex-grow overflow-y-auto max-h-[calc(100vh-15rem)] border-2 border-gray-300 rounded-b-md'>
       <ChatHistory messages={messages} />
       </div>
-      <ChatForm onSend={handleSendMessage} />
+      <ChatForm onSend={handleSendMessage} setSidebarOpen={setSidebarOpen}/>
     </div>
   );
 };

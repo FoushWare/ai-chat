@@ -2,6 +2,7 @@
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   className?: string;
+  
 }
 const Input = ({ className, ...props }: InputProps) => {
   return (

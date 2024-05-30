@@ -11,7 +11,7 @@ import { Session } from '@/types';
 interface SidebarProps {
   sessions: Session[];
   onSelectSession: Dispatch<SetStateAction<Session | null>>
-  onCreateNewSession: () => void;
+  onCreateNewSession: (initialMessage?: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
 }
@@ -26,7 +26,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelectSession, onCreateNe
       <div className="flex justify-between items-center p-4 ">
         <h2 className="text-xl font-semibold">Sessions</h2>
         <button
-          onClick={onCreateNewSession}
+          onClick={() => onCreateNewSession("")}
           className="p-2 bg-purple-500 text-white rounded-full hover:bg-purple-600"
         >
           <PlusIcon className="h-6 w-6" />
