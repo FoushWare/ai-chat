@@ -11,7 +11,8 @@ export interface Session {
   }
   export interface ChatListProps {
     sessions: Session[];
-    onSelectSession: Dispatch<SetStateAction<Session | null>>
+    onSelectSession: Dispatch<SetStateAction<Session | null>>;
+    onDeleteSession: (sessionId: string) => void;
   }
   export interface Message {
     id: number;

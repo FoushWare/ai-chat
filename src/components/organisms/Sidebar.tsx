@@ -14,9 +14,10 @@ interface SidebarProps {
   onCreateNewSession: (initialMessage?: string) => void;
   sidebarOpen: boolean;
   setSidebarOpen: Dispatch<SetStateAction<boolean>>;
+  onDeleteSession: (sessionId: string) => void;
 }
 
-const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelectSession, onCreateNewSession, sidebarOpen, setSidebarOpen }) => {
+const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelectSession, onCreateNewSession, sidebarOpen, setSidebarOpen,onDeleteSession }) => {
   return (
     <div className={`fixed inset-y-0 left-0 transform ${sidebarOpen? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:relative lg:w-64 transition-transform duration-300 ease-in-out w-64 bg-gray-100 border-r border-gray-3000 z-50`}>
     <div className='flex justify-between items-center p-4'>
@@ -33,7 +34,7 @@ const Sidebar: React.FC<SidebarProps> = ({ sessions, onSelectSession, onCreateNe
         </button>
       </div>
       <div className="flex-grow overflow-y-auto max-h-[calc(100vh-8rem)]">
-        <ChatList sessions={sessions} onSelectSession={onSelectSession} />
+        <ChatList sessions={sessions} onSelectSession={onSelectSession} onDeleteSession={onDeleteSession} />
       </div>
     </div>
   );

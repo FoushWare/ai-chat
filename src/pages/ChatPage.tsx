@@ -89,6 +89,21 @@ const ChatPage = () => {
     localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
   };
 
+  const clearCurrentSession = () => {
+    if (currentSession) {
+      const updatedSession = {
+        ...currentSession,
+        messages: [],
+      };
+      const updatedSessions = sessions.map((session) =>
+        session.id === currentSession.id ? updatedSession : session
+      );
+      setSessions(updatedSessions);
+      setCurrentSession(updatedSession);
+      localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
+    }
+  };
+
   return (
     <div className="flex min-h-screen">
       <Sidebar
@@ -97,6 +112,7 @@ const ChatPage = () => {
         onCreateNewSession={createNewSession}
         sidebarOpen={sidebarOpen}
         setSidebarOpen={setSidebarOpen}
+        onDeleteSession={clearCurrentSession}
       />
       <div className="flex-1 flex flex-col relative">
         <div className="flex-grow overflow-y-auto p-4">
