@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import Sidebar from "@components/organisms/Sidebar";
 import { Session, Message } from "@/types";
 import MainChat from "@components/organisms/MainChat";
+import DOMPurify from 'dompurify';
+
 
 
 const ChatPage = () => {
@@ -24,16 +26,23 @@ const ChatPage = () => {
     }
   }, []);
 
+
+  const sanitizeMessage = (message: string): string => {
+    return DOMPurify.sanitize(message);
+  };
+
   const addMessageToSession = (message: string, sender: 'user' | 'bot') => {
+    const sanitizedMessage = sanitizeMessage(message);
+
     if (currentSession) {
       const newMessage: Message = {
         id: Date.now(),
-        text: message,
+        text: sanitizedMessage,
         sender: sender,
       };
       const botResponse: Message = {
         id: Date.now(),
-        text: `Bot response to: ${message}`,
+        text: `Bot response to: ${sanitizedMessage}`,
         sender: 'bot',
       };
       const updatedSession = {
@@ -62,12 +71,13 @@ const ChatPage = () => {
   };
 
   const createNewSession = (initialMessage?: string) => {
+    const sanitizedInitialMessage = sanitizeMessage(initialMessage || '');
     const newSession: Session = {
       id: Date.now(),
       title: `Session ${sessions.length + 1}`,
-      messages: initialMessage ? [{ id: Date.now(), text: initialMessage, sender: 'user' },{
+      messages: sanitizedInitialMessage ? [{ id: Date.now(), text: sanitizedInitialMessage, sender: 'user' },{
         id: Date.now(),
-        text: `Bot response to: ${initialMessage}`,
+        text: `Bot response to: ${sanitizedInitialMessage}`,
         sender: 'bot',
       }]
        : [],
